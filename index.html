@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Петербургские каркасные дома — строительство по скандинавской технологии с 2011 года</title>
+<meta name="description" content="Каркасные дома под ключ в СПб и Ленобласти с 2011 года: утеплённый скандинавский каркас, древесина камерной сушки, фиксированная смета по договору. Более 450 построенных домов.">
+<script type="importmap">
+{ "imports": { "three": "./assets/k3d/vendor/three.module.js", "three/addons/": "./assets/k3d/vendor/" } }
+</script>
+<style>
+:root{
+  --fjord:#1d3f55; --fjord-2:#2c5f7c; --fjord-deep:#142c3c;
+  --snow:#f6f8f7; --snow-2:#eef2f0;
+  --wood:#c58a4e; --wood-light:#dba964;
+  --text:#1e2a30; --text-mute:#54636b;
+  --white:#ffffff;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;color:var(--text);background:var(--snow);line-height:1.6}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--wood);text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+section{padding:clamp(56px,8vw,96px) 0}
+
+/* ---------- topbar + nav ---------- */
+.topbar{background:var(--fjord-deep);color:rgba(246,248,247,.75);font-size:.82rem;padding:.45rem 0}
+.topbar .container{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.topbar a{color:var(--wood-light)}
+.topbar .tb-right{display:flex;gap:1.4rem;flex-wrap:wrap}
+header.nav{position:sticky;top:0;z-index:100;background:rgba(246,248,247,.94);backdrop-filter:blur(10px);border-bottom:1px solid #dbe3df}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 0}
+.logo{display:flex;align-items:center;gap:.6rem;color:var(--fjord);font-weight:800;font-size:1.05rem;line-height:1.2}
+.logo svg{width:38px;height:38px;flex:none}
+.logo small{display:block;font-size:.6rem;font-weight:600;color:var(--text-mute);letter-spacing:.12em;text-transform:uppercase}
+nav.links{display:flex;gap:clamp(14px,2vw,26px);font-weight:600;font-size:.95rem}
+nav.links a{color:var(--fjord-2);padding:.3rem 0;border-bottom:2px solid transparent;transition:.2s}
+nav.links a:hover{color:var(--wood);border-color:var(--wood)}
+.burger{display:none;background:none;border:0;color:var(--fjord);cursor:pointer;padding:.3rem}
+.burger svg{width:26px;height:26px}
+@media(max-width:880px){
+  nav.links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--white);flex-direction:column;padding:1rem clamp(16px,4vw,40px) 1.4rem;box-shadow:0 12px 24px rgba(0,0,0,.12);border-bottom:1px solid #dbe3df}
+  nav.links.open{display:flex}
+  .burger{display:block}
+}
+
+/* ---------- hero ---------- */
+.hero{background:linear-gradient(rgba(20,44,60,.55),rgba(20,44,60,.65)),url('img/hero.jpg') center/cover no-repeat;color:var(--snow);padding:clamp(72px,10vw,120px) 0 clamp(56px,7vw,90px)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,48px);align-items:start}
+.hero-grid>*{min-width:0}
+.hero h1{font-size:clamp(1.8rem,4vw,2.9rem);line-height:1.15;font-weight:800;margin-bottom:1.1rem;overflow-wrap:break-word}
+@media(max-width:560px){.hero h1{font-size:1.45rem}}
+.hero h1 em{color:var(--wood-light);font-style:normal}
+.hero p.sub{font-size:clamp(1rem,1.5vw,1.2rem);color:rgba(246,248,247,.85);max-width:34rem;margin-bottom:1.8rem}
+.hero-badges{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2rem}
+.badge{background:rgba(246,248,247,.12);border:1px solid rgba(246,248,247,.28);border-radius:999px;padding:.45rem 1rem;font-size:.85rem;font-weight:600}
+.hero-cta{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:10px;padding:.85rem 1.5rem;font-weight:700;font-size:.98rem;cursor:pointer;border:2px solid transparent;transition:.2s}
+.btn-wood{background:var(--wood);color:var(--white)}
+.btn-wood:hover{background:var(--wood-light)}
+.btn-ghost{background:transparent;color:var(--snow);border-color:rgba(246,248,247,.5)}
+.btn-ghost:hover{border-color:var(--snow)}
+.hero-note{background:rgba(20,44,60,.4);border:1px solid rgba(219,169,100,.35);border-radius:var(--radius);padding:clamp(20px,3vw,36px)}
+.hero-note h3{color:var(--wood-light);font-size:1.25rem;margin-bottom:.6rem}
+.hero-note p{color:rgba(246,248,247,.85);font-size:.98rem;margin-bottom:1rem}
+.hero-note-link{color:var(--wood-light);font-weight:700;border-bottom:2px solid var(--wood)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+
+/* ---------- section heads ---------- */
+.section-head{max-width:720px;margin:0 auto clamp(36px,5vw,56px);text-align:center}
+.section-head .lead{margin-left:auto;margin-right:auto}
+.eyebrow{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--wood);margin-bottom:.9rem}
+h2{font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.2;margin-bottom:.8rem;color:var(--fjord)}
+.lead{font-size:clamp(1rem,1.4vw,1.1rem);color:var(--text-mute);max-width:60ch}
+.section-dark{background:var(--fjord);color:var(--snow)}
+.section-dark h2{color:var(--snow)}
+.section-dark .lead{color:rgba(246,248,247,.75)}
+
+/* ---------- 3D builder ---------- */
+.builder-section{background:var(--fjord-deep)}
+.builder-grid{display:grid;grid-template-columns:360px 1fr;gap:clamp(20px,3vw,36px);align-items:stretch}
+.builder-grid>*{min-width:0}
+.builder-panel{background:rgba(246,248,247,.05);border:1px solid rgba(219,169,100,.25);border-radius:var(--radius);padding:1.4rem}
+.builder-panel h3{color:var(--wood-light);margin-bottom:.3rem}
+.builder-panel .panel-sub{font-size:.86rem;color:rgba(246,248,247,.65);margin-bottom:1.2rem}
+.builder-panel .field{margin-bottom:.9rem}
+.builder-panel .field label{display:flex;align-items:baseline;gap:.4em;white-space:nowrap;font-size:.82rem;font-weight:600;color:rgba(246,248,247,.9);margin-bottom:.4rem;letter-spacing:.02em}
+.builder-panel .field label .hint{color:rgba(246,248,247,.55);font-weight:400;font-size:.74rem}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.builder-panel .input{width:100%;background:rgba(0,0,0,.35);border:1px solid rgba(219,169,100,.28);color:var(--snow);padding:.6rem .75rem;border-radius:10px;font-size:.95rem;transition:border-color .15s,box-shadow .15s}
+.builder-panel .input:focus{outline:none;border-color:var(--wood);box-shadow:0 0 0 3px rgba(197,138,78,.22)}
+.roof-types{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.roof-chip{display:flex;align-items:center;gap:.5rem;padding:.6rem .7rem;border:1px solid rgba(219,169,100,.28);border-radius:10px;background:rgba(0,0,0,.3);cursor:pointer;font-size:.86rem;font-weight:500;color:rgba(246,248,247,.85);transition:all .15s}
+.roof-chip svg{width:30px;height:22px;flex:0 0 30px;color:var(--wood-light)}
+.roof-chip:hover{border-color:var(--wood);color:var(--white)}
+.roof-chip.active{background:rgba(197,138,78,.2);border-color:var(--wood);color:var(--white);box-shadow:0 0 0 2px rgba(197,138,78,.2)}
+.toggle-row{display:flex;align-items:center;gap:.6rem;font-size:.86rem;color:rgba(246,248,247,.85);margin:.6rem 0;cursor:pointer;user-select:none}
+.toggle-row input{appearance:none;width:34px;height:20px;background:rgba(0,0,0,.5);border:1px solid rgba(219,169,100,.3);border-radius:999px;position:relative;transition:background .2s;flex:0 0 34px}
+.toggle-row input::before{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--wood-light);transition:transform .2s}
+.toggle-row input:checked{background:rgba(197,138,78,.4)}
+.toggle-row input:checked::before{transform:translateX(14px)}
+.builder-actions{display:flex;gap:.6rem;margin-top:1.2rem;flex-wrap:wrap}
+.builder-actions .btn{flex:1;min-width:130px}
+.btn-outline{background:transparent;color:var(--wood-light);border-color:var(--wood)}
+.btn-outline:hover{background:rgba(197,138,78,.15)}
+.builder-view{position:relative;border-radius:var(--radius);overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#26506c 0%,#142c3c 80%);border:1px solid rgba(219,169,100,.25);min-height:440px;display:flex;flex-direction:column}
+#builder-canvas{width:100%;height:100%;display:block;flex:1;touch-action:none}
+.view-overlay{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:1rem 1.2rem;z-index:2}
+.view-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.view-info{background:rgba(10,24,34,.65);backdrop-filter:blur(8px);padding:.7rem 1rem;border-radius:12px;border:1px solid rgba(219,169,100,.3);font-size:.82rem;color:rgba(246,248,247,.85)}
+.view-info b{color:var(--wood-light);font-weight:700;font-size:.95rem;display:block;margin-bottom:.15rem}
+.view-controls{display:flex;gap:.4rem;pointer-events:auto}
+.view-btn{width:38px;height:38px;border-radius:10px;background:rgba(10,24,34,.7);border:1px solid rgba(219,169,100,.3);color:var(--wood-light);display:grid;place-items:center;transition:all .15s;cursor:pointer}
+.view-btn:hover{background:rgba(197,138,78,.2);color:var(--white);transform:translateY(-1px)}
+.view-btn svg{width:18px;height:18px}
+.view-bottom{font-size:.74rem;color:rgba(246,248,247,.78);text-align:center}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.legend span{display:inline-flex;align-items:center;gap:.35em}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.builder-result{margin-top:1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.7rem}
+.stat-box{background:rgba(246,248,247,.05);border:1px solid rgba(219,169,100,.22);border-radius:12px;padding:.85rem .9rem;text-align:center}
+.stat-box .v{font-size:1.4rem;font-weight:700;color:var(--wood-light);line-height:1}
+.stat-box .l{font-size:.72rem;color:rgba(246,248,247,.8);text-transform:uppercase;letter-spacing:.05em;margin-top:.3rem}
+@media(max-width:1024px){.builder-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.field-row{grid-template-columns:1fr}.builder-view{min-height:340px}}
+
+/* ---------- catalog ---------- */
+.cat-tabs{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem}
+.cat-tab{padding:.5rem 1.1rem;border-radius:999px;border:1px solid #cfdbd5;background:var(--white);font-size:.88rem;font-weight:600;color:var(--fjord-2);cursor:pointer;transition:.2s}
+.cat-tab:hover{border-color:var(--wood)}
+.cat-tab.active{background:var(--fjord);color:var(--snow);border-color:var(--fjord)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:clamp(18px,2.5vw,28px)}
+.proj{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 22px rgba(30,42,48,.08);transition:.25s;display:flex;flex-direction:column}
+.proj:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(30,42,48,.14)}
+.proj .thumb{position:relative;height:200px;overflow:hidden}
+.proj .thumb img{width:100%;height:100%;object-fit:cover}
+.proj .hit{position:absolute;top:.8rem;left:.8rem;background:var(--wood);color:var(--white);font-size:.7rem;font-weight:800;letter-spacing:.08em;padding:.3rem .7rem;border-radius:999px;text-transform:uppercase}
+.proj .body{padding:1.2rem 1.3rem 1.3rem;flex:1;display:flex;flex-direction:column}
+.proj h3{font-size:1.15rem;color:var(--fjord);margin-bottom:.4rem}
+.proj .specs{display:flex;gap:1rem;font-size:.82rem;color:var(--text-mute);margin-bottom:.8rem;flex-wrap:wrap}
+.proj .price{margin-top:auto;font-size:1.05rem;font-weight:800;color:var(--fjord)}
+.proj .price small{display:block;font-size:.72rem;font-weight:500;color:var(--text-mute)}
+.proj .p-cta{margin-top:.9rem;font-weight:700;font-size:.88rem;color:var(--wood)}
+
+/* ---------- tech / features ---------- */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(18px,2.5vw,28px)}
+.tech-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 22px rgba(30,42,48,.08);transition:.25s}
+.tech-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(30,42,48,.14)}
+.tech-card .thumb{height:200px;overflow:hidden}
+.tech-card .thumb img{width:100%;height:100%;object-fit:cover}
+.tech-card .body{padding:1.3rem 1.4rem 1.5rem}
+.tech-card h3{font-size:1.15rem;color:var(--fjord);margin-bottom:.5rem}
+.tech-card p{font-size:.92rem;color:var(--text-mute)}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(18px,2.5vw,28px)}
+.feat{background:rgba(246,248,247,.06);border:1px solid rgba(246,248,247,.16);border-radius:var(--radius);padding:1.6rem}
+.feat .ic{width:52px;height:52px;border-radius:12px;background:rgba(219,169,100,.18);display:flex;align-items:center;justify-content:center;color:var(--wood-light);margin-bottom:1rem}
+.feat .ic svg{width:26px;height:26px}
+.feat h3{font-size:1.05rem;margin-bottom:.5rem}
+.feat p{font-size:.9rem;color:rgba(246,248,247,.72)}
+.energy{background:linear-gradient(135deg,var(--fjord-2),var(--fjord));border-radius:var(--radius);padding:clamp(24px,4vw,48px);display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;color:var(--snow)}
+.energy .big{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--wood-light);line-height:1.1}
+.energy .big small{display:block;font-size:.9rem;font-weight:500;color:rgba(246,248,247,.8)}
+@media(max-width:820px){.energy{grid-template-columns:1fr}}
+
+/* ---------- works gallery ---------- */
+.works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:clamp(16px,2.5vw,26px)}
+.work{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;cursor:pointer}
+.work img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.work:hover img{transform:scale(1.06)}
+.work .cap{position:absolute;inset:auto 0 0 0;padding:1.6rem 1.1rem 1rem;background:linear-gradient(transparent,rgba(20,44,60,.92));color:var(--snow)}
+.work .cap b{display:block;font-size:1rem}
+.work .cap span{font-size:.8rem;color:rgba(246,248,247,.75)}
+.work .cap .loc{font-size:.72rem;color:var(--wood-light);letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+
+/* ---------- quiz ---------- */
+.quiz-card{background:var(--white);border-radius:var(--radius);box-shadow:0 10px 30px rgba(30,42,48,.12);max-width:760px;margin:0 auto;overflow:hidden}
+.quiz-head{background:var(--fjord);color:var(--snow);padding:1.1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.quiz-head b{font-size:1.05rem}
+.quiz-step-ind{font-size:.85rem;color:var(--wood-light);font-weight:700;white-space:nowrap}
+.quiz-body{padding:clamp(20px,3vw,32px)}
+.quiz-q{font-size:1.1rem;font-weight:700;color:var(--fjord);margin-bottom:1.2rem}
+.quiz-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem}
+.quiz-opt{text-align:left;padding:.85rem 1rem;border:2px solid #d3dcd7;border-radius:12px;background:var(--snow);font-size:.95rem;font-weight:600;color:var(--text);cursor:pointer;transition:.15s}
+.quiz-opt:hover{border-color:var(--wood)}
+.quiz-opt.sel{border-color:var(--wood);background:rgba(197,138,78,.08)}
+.quiz-nav{display:flex;justify-content:space-between;margin-top:1.5rem}
+.quiz-back{background:none;border:0;color:var(--text-mute);font-weight:600;cursor:pointer;padding:.5rem}
+.quiz-back:disabled{opacity:.35;cursor:default}
+.quiz-bar{height:5px;background:var(--snow-2)}
+.quiz-bar i{display:block;height:100%;background:var(--wood);transition:width .3s}
+.quiz-final{display:none}
+.quiz-final.show{display:block}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.f-grid .full{grid-column:1/-1}
+.f-grid label{display:block;font-size:.78rem;font-weight:700;color:var(--text-mute);margin-bottom:.3rem}
+.f-grid input,.f-grid textarea{width:100%;padding:.7rem .8rem;border-radius:9px;border:1px solid #c9d4cf;font-size:.95rem;font-family:inherit;background:var(--snow)}
+.f-grid input:focus,.f-grid textarea:focus{outline:2px solid var(--wood);border-color:var(--wood)}
+.quiz-ok{display:none;background:#e6f2ea;border:1px solid #b4d8c1;color:#1d5c33;border-radius:10px;padding:1rem 1.2rem;font-size:.95rem;margin-top:1rem}
+.quiz-ok.show{display:block}
+@media(max-width:640px){.f-grid{grid-template-columns:1fr}}
+
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(18px,2.5vw,26px);counter-reset:step}
+.step{position:relative;padding:1.5rem 1.4rem;background:rgba(246,248,247,.06);border:1px solid rgba(246,248,247,.16);border-radius:var(--radius)}
+.step::before{counter-increment:step;content:counter(step,decimal-leading-zero);position:absolute;top:-14px;left:1.2rem;background:var(--wood);color:var(--white);font-weight:800;font-size:.85rem;padding:.25rem .7rem;border-radius:8px;letter-spacing:.08em}
+.step h3{font-size:1rem;margin-bottom:.4rem}
+.step p{font-size:.88rem;color:rgba(246,248,247,.72)}
+
+/* ---------- contacts ---------- */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,4vw,48px)}
+.contact-info{display:flex;flex-direction:column;gap:1rem}
+.ci-item{display:flex;gap:1rem;align-items:flex-start;background:rgba(246,248,247,.06);border:1px solid rgba(246,248,247,.16);padding:1.1rem 1.3rem;border-radius:12px}
+.ci-ic{flex:none;width:44px;height:44px;border-radius:10px;background:rgba(219,169,100,.18);display:flex;align-items:center;justify-content:center;color:var(--wood-light)}
+.ci-ic svg{width:22px;height:22px}
+.ci-item h4{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.25rem}
+.ci-item .v{font-size:.98rem;color:var(--snow)}
+.form-card{background:var(--white);border-radius:var(--radius);padding:clamp(20px,3vw,32px);box-shadow:0 10px 26px rgba(30,42,48,.12)}
+.form-card h3{font-size:1.25rem;color:var(--fjord);margin-bottom:.4rem}
+.form-card .fs{font-size:.9rem;color:var(--text-mute);margin-bottom:1.2rem}
+.form-ok{display:none;background:#e6f2ea;border:1px solid #b4d8c1;color:#1d5c33;border-radius:10px;padding:1rem 1.2rem;font-size:.95rem;margin-top:1rem}
+.form-ok.show{display:block}
+@media(max-width:820px){.contact-grid{grid-template-columns:1fr}.f-grid{grid-template-columns:1fr}}
+
+/* ---------- footer ---------- */
+footer{background:var(--fjord-deep);color:rgba(246,248,247,.7);padding:2.5rem 0 2rem}
+.foot{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;align-items:center}
+footer .f-logo{color:var(--snow);font-weight:800}
+footer .f-copy{font-size:.85rem}
+footer .f-links{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}
+footer .f-links a{color:rgba(246,248,247,.7);font-size:.85rem}
+footer .f-links a:hover{color:var(--wood-light)}
+
+/* ---------- toast + lightbox ---------- */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--fjord-deep);color:var(--wood-light);padding:.85rem 1.4rem;border-radius:999px;font-weight:600;font-size:.92rem;box-shadow:0 10px 30px rgba(0,0,0,.35);z-index:200;opacity:0;transition:all .3s;border:1px solid rgba(219,169,100,.4)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.lb{display:none;position:fixed;inset:0;background:rgba(10,20,30,.9);z-index:200;align-items:center;justify-content:center;padding:4vw;cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:96vw;max-height:92vh;border-radius:10px}
+.lb .lb-cap{position:absolute;bottom:2rem;left:0;right:0;text-align:center;color:var(--snow);font-size:.95rem}
+
+
+
+/* ===== k3d: правки секции конструктора ===== */
+.builder-section h2{color:var(--snow)}
+.builder-section .lead{color:rgba(246,248,247,.82)}
+.builder-section .section-head{margin-bottom:clamp(24px,3vw,34px)}
+/* ===== /k3d ===== */
+</style>
+</head>
+<body>
+
+<!-- ===================== TOPBAR ===================== -->
+<div class="topbar">
+  <div class="container">
+    <div>Строим для вас с 2011 года · более 450 проектов · СПб и Ленобласть</div>
+    <div class="tb-right">
+      <a href="mailto:alfarus@bk.ru">alfarus@bk.ru</a>
+      <a href="tel:+78124907490" style="color:#dba964;font-weight:700">8 (812) 490-74-90</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#top">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M8 40V22L24 9l16 13v18" stroke="#1d3f55" stroke-width="3" stroke-linejoin="round"/><path d="M8 40h32M24 9v11M16 20l8-8 8 8M15 28h18M24 28v12" stroke="#c58a4e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>ПЕТЕРБУРГСКИЕ<br><small>каркасные дома</small></span>
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="#builder">3D-конструктор</a>
+      <a href="#catalog">Каталог проектов</a>
+      <a href="#tech">Технология</a>
+      <a href="#works">Наши работы</a>
+      <a href="#quiz">Подобрать дом</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <h1>Скандинавский каркас — <em>тёплый дом</em> для северо-запада</h1>
+      <p class="sub">Строим каркасные дома под ключ в Санкт-Петербурге и Ленинградской области с 2011 года. Древесина камерной сушки карельских лесов, бесшовное утепление плитами МДВП, фиксированная стоимость по договору.</p>
+      <div class="hero-badges">
+        <span class="badge">С 2011 года</span>
+        <span class="badge">450+ проектов</span>
+        <span class="badge">Фиксированная смета</span>
+        <span class="badge">Ипотека и мат. капитал</span>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-wood" href="#quiz">Подобрать дом за 1 минуту</a>
+        <a class="btn btn-ghost" href="#catalog">Каталог с ценами</a>
+      </div>
+    </div>
+    <div class="hero-note">
+      <h3>Соберите свой дом в 3D</h3>
+      <p>Задайте габариты и тип крыши в конструкторе — модель каркаса с фермами соберётся на лету. Покрутите её, примерьте размеры участка и отправьте параметры нам на расчёт.</p>
+      <a href="#builder" class="hero-note-link">К 3D-конструктору ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3D BUILDER ===================== -->
+<section class="section builder-section" id="builder">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Интерактивный конструктор</span>
+      <h2>Постройте 3D-модель вашего дома</h2>
+      <p class="lead">Введите габариты — модель каркаса с фермами и стропилами соберётся мгновенно. Вращайте, приближайте, переключайте крышу: двускатную, вальмовую, односкатную или мансардную.</p>
+    </div>
+
+    <div data-k3d data-accent="#c58a4e" data-spec-target="#cfg-spec"></div>
+    <div class="cfg__out" id="cfg-spec"></div>
+  </div>
+</section>
+
+<!-- ===================== CATALOG ===================== -->
+<section class="section" id="catalog">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Каталог проектов</span>
+      <h2>Готовые проекты с фиксированной ценой</h2>
+      <p class="lead">Каждый проект можно изменить под свой участок: планировку, площадь, комплектацию. Цены — «под ключ» по договору, без доплат по ходу стройки.</p>
+    </div>
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="fin">Финские дома</button>
+      <button class="cat-tab" data-cat="barn">БарнХаус</button>
+      <button class="cat-tab" data-cat="dacha">Дачные и бани</button>
+    </div>
+    <div class="proj-grid" id="projGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== TECH ===================== -->
+<section class="section section-dark" id="tech">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Технология</span>
+      <h2>Утеплённый скандинавский каркас</h2>
+      <p class="lead">Технология, отработанная на 450+ домах северо-запада: каркас из древесины камерной сушки, бесшовное утепление, пароизоляция и МДВП-обшивка.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="thumb"><img src="img/fin1.jpg" alt="Финский каркасный дом" loading="lazy"></div>
+        <div class="body"><h3>Древесина камерной сушки</h3><p>Пиломатериал северных карельских лесов, высушенный в камере до влажности 12–14%: каркас не «ведёт», усадка минимальна, дом не даёт трещин.</p></div>
+      </div>
+      <div class="tech-card">
+        <div class="thumb"><img src="img/cont.jpg" alt="Утепление каркаса" loading="lazy"></div>
+        <div class="body"><h3>Бесшовное утепление</h3><p>Минеральные утеплители и плиты МДВП без мостиков холода: стена держит тепло даже в петербургскую зиму с ветром и сыростью.</p></div>
+      </div>
+      <div class="tech-card">
+        <div class="thumb"><img src="img/int2.jpg" alt="Интерьер каркасного дома" loading="lazy"></div>
+        <div class="body"><h3>Комфорт круглый год</h3><p>Пароизоляция, ветрозащита, вентфасад и инженерные системы в комплекте — дом пригоден для зимнего проживания сразу после сдачи.</p></div>
+      </div>
+    </div>
+    <div style="margin-top:clamp(28px,4vw,44px)" class="energy">
+      <div>
+        <h2 style="font-size:clamp(1.3rem,2.5vw,1.8rem);margin-bottom:.6rem">Энергоэффективность — в цифрах</h2>
+        <p style="color:rgba(246,248,247,.85);max-width:44ch">Затраты на отопление дома площадью до 100 м² в холодные месяцы не превышают 5 000 ₽. Скандинавский каркас окупается первой же зимой.</p>
+      </div>
+      <div class="big">≤ 5 000 ₽/мес<small>отопление дома до 100 м² зимой</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURES ===================== -->
+<section class="section section-dark" id="why" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Почему мы</span>
+      <h2>Прозрачные условия с первого дня</h2>
+    </div>
+    <div class="features">
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></div><h3>Фиксированная стоимость</h3><p>Цена закрепляется в договоре до старта: сколько прописали — столько и заплатили. Поэтапная оплата и рассрочка.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Всё в одном месте</h3><p>Проект, фундамент, каркас, кровля, инженерия и отделка — от одной команды. Проектная документация — в подарок.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Бригады — граждане РФ</h3><p>Собственные бригады, работающие по нашей технологии. Белая оплата через расчётный счёт, гарантия на все виды работ.</p></div>
+      <div class="feat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13M9 21v-8h6v8"/></svg></div><h3>Выезд сметчика — бесплатно</h3><p>Приедем на участок, оценим грунт и подъезд, посчитаем смету под ваш проект. Ипотека, кредит, материнский капитал.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WORKS ===================== -->
+<section class="section" id="works">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Наши работы</span>
+      <h2>450+ домов в СПб и Ленобласти</h2>
+      <p class="lead">Финские дома, БарнХаусы, бани и дачные домики от Выборга до Ладоги. Нажмите на фото, чтобы открыть его целиком.</p>
+    </div>
+    <div class="works-grid">
+      <figure class="work" data-cap="Финский дом, Васкелово" data-img="img/fin2.jpg"><img src="img/fin2.jpg" alt="Финский дом, Васкелово" loading="lazy"><figcaption class="cap"><span class="loc">Выборгский район</span><b>Финский дом</b><span>Васкелово · 204 м²</span></figcaption></figure>
+      <figure class="work" data-cap="Дом в стиле БарнХаус, Рощино" data-img="img/barn1.jpg"><img src="img/barn1.jpg" alt="БарнХаус, Рощино" loading="lazy"><figcaption class="cap"><span class="loc">Рощино</span><b>БарнХаус</b><span>тёмный фасад, 150 м²</span></figcaption></figure>
+      <figure class="work" data-cap="Каркасная баня, Новосельцево" data-img="img/banya1.jpg"><img src="img/banya1.jpg" alt="Баня, Новосельцево" loading="lazy"><figcaption class="cap"><span class="loc">Новосельцево</span><b>Каркасная баня</b><span>6×4 м, парная + отдых</span></figcaption></figure>
+      <figure class="work" data-cap="Загородный коттедж, д. Ладога" data-img="img/fin3.jpg"><img src="img/fin3.jpg" alt="Коттедж, Ладога" loading="lazy"><figcaption class="cap"><span class="loc">д. Ладога</span><b>Загородный коттедж</b><span>231 м², под ключ</span></figcaption></figure>
+      <figure class="work" data-cap="Дачный домик, Сосновские озёра" data-img="img/dacha.jpg"><img src="img/dacha.jpg" alt="Дачный домик" loading="lazy"><figcaption class="cap"><span class="loc">Сосновские озёра</span><b>Дачный домик</b><span>гостевой формат, 40 м²</span></figcaption></figure>
+      <figure class="work" data-cap="Интерьер спальни, Рябово" data-img="img/int1.jpg"><img src="img/int1.jpg" alt="Интерьер, Рябово" loading="lazy"><figcaption class="cap"><span class="loc">Рябово</span><b>Интерьер спальни</b><span>скандинавская отделка</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUIZ ===================== -->
+<section class="section section-dark" id="quiz">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Квиз-калькулятор</span>
+      <h2>Подберём дом под ваш бюджет за минуту</h2>
+      <p class="lead">Шесть коротких вопросов — и мы пришлём подходящие проекты со стоимостью и сроками.</p>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-head"><b>Подбор дома</b><span class="quiz-step-ind" id="qInd">Шаг 1 из 6</span></div>
+      <div class="quiz-bar"><i id="qBar" style="width:16%"></i></div>
+      <div class="quiz-body">
+        <div id="qSteps">
+          <div class="quiz-q" id="qTitle"></div>
+          <div class="quiz-opts" id="qOpts"></div>
+          <div class="quiz-nav">
+            <button class="quiz-back" id="qBack" disabled>← Назад</button>
+            <button class="btn btn-wood" id="qNext" style="display:none">Далее</button>
+          </div>
+        </div>
+        <div class="quiz-final" id="qFinal">
+          <div class="quiz-q" style="margin-bottom:.4rem">Почти готово! Куда прислать подборку?</div>
+          <p style="font-size:.9rem;color:var(--text-mute);margin-bottom:1.2rem">Мы соберём проекты под ваш бюджет <b id="qSummary"></b> и пришлём в течение рабочего дня.</p>
+          <form class="f-grid" id="quizForm">
+            <div class="full"><label>Ваше имя</label><input type="text" name="name" placeholder="Дмитрий" required></div>
+            <div><label>Телефон</label><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
+            <div><label>Почта (необязательно)</label><input type="email" name="email" placeholder="you@mail.ru"></div>
+            <div class="full"><label>Комментарий</label><textarea name="comment" placeholder="Что ещё важно: участок, сроки, ипотека…" style="min-height:80px;resize:vertical"></textarea></div>
+            <button class="btn btn-wood full" type="submit">Получить подборку</button>
+          </form>
+          <div class="quiz-ok" id="quizOk">Спасибо! Подборка уже собирается — свяжемся в течение рабочего дня.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STEPS ===================== -->
+<section class="section section-dark" id="how" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Как мы работаем</span>
+      <h2>От заявки до ключей — пять шагов</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Заявка и подбор</h3><p>Квиз или звонок: уточняем бюджет, участок, пожелания. Присылаем подходящие проекты.</p></div>
+      <div class="step"><h3>Выезд сметчика</h3><p>Бесплатно выезжаем на участок, оцениваем условия и считаем смету. Проектная документация — в подарок.</p></div>
+      <div class="step"><h3>Договор</h3><p>Фиксируем стоимость, график этапов и гарантии. Ипотека, кредит, материнский капитал, рассрочка.</p></div>
+      <div class="step"><h3>Строительство</h3><p>Фундамент, каркас камерной сушки, кровля, инженерия и отделка. Фотоотчёты по этапам.</p></div>
+      <div class="step"><h3>Сдача под ключ</h3><p>Приёмка по чек-листу, гарантия на все виды работ. Заезжайте — дом готов к зимнему проживанию.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACTS ===================== -->
+<section class="section section-dark" id="contacts" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Контакты</span>
+      <h2>Приезжайте или позвоните</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="ci-item"><div class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h4>Офис</h4><div class="v">г. Санкт-Петербург,<br>Набережная Чёрной речки, 47, стр. 2</div></div></div>
+        <div class="ci-item"><div class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div><div><h4>Телефон</h4><div class="v"><a href="tel:+78124907490" style="color:#dba964">8 (812) 490-74-90</a></div></div></div>
+        <div class="ci-item"><div class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4zM4 8l8 5 8-5"/></svg></div><div><h4>Почта</h4><div class="v"><a href="mailto:alfarus@bk.ru" style="color:#dba964">alfarus@bk.ru</a></div></div></div>
+        <div class="ci-item"><div class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><h4>Режим работы</h4><div class="v">Пн–Сб, 9:00–19:00<br>Выезд сметчика — бесплатно</div></div></div>
+        <div class="ci-item"><div class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><div><h4>Финансирование</h4><div class="v">Ипотека · кредит · материнский капитал · поэтапная оплата</div></div></div>
+      </div>
+      <div class="form-card">
+        <h3>Рассчитать мой дом</h3>
+        <p class="fs">Заполните форму — ответим с предварительной сметой в течение рабочего дня.</p>
+        <div id="lead-wizard" class="card" style="padding:clamp(18px,3vw,32px)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container foot">
+    <div>
+      <div class="f-logo">ПЕТЕРБУРГСКИЕ КАРКАСНЫЕ ДОМА</div>
+      <div class="f-copy">Скандинавский каркас под ключ. © 2011–2026.</div>
+    </div>
+    <div class="f-links">
+      <a href="#builder">3D-конструктор</a><a href="#catalog">Каталог</a><a href="#works">Работы</a><a href="#quiz">Подбор</a><a href="#contacts">Контакты</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== LIGHTBOX ===================== -->
+<div class="lb" id="lb"><img id="lbImg" src="" alt=""><div class="lb-cap" id="lbCap"></div></div>
+
+<script>
+/* ---------- burger ---------- */
+document.getElementById('burger').addEventListener('click',function(){
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('#navLinks a').forEach(function(a){
+  a.addEventListener('click',function(){document.getElementById('navLinks').classList.remove('open');});
+});
+
+/* ---------- toast ---------- */
+var toastTimer;
+function toast(msg){
+  var t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';document.body.appendChild(t);}
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},2600);
+}
+window.toast=toast;
+
+/* ---------- lightbox ---------- */
+var lb=document.getElementById('lb');
+document.querySelectorAll('.work').forEach(function(w){
+  w.addEventListener('click',function(){
+    document.getElementById('lbImg').src=w.dataset.img;
+    document.getElementById('lbCap').textContent=w.dataset.cap;
+    lb.classList.add('open');
+  });
+});
+lb.addEventListener('click',function(){lb.classList.remove('open');});
+
+/* ---------- catalog ---------- */
+var PROJECTS=[
+  {cat:'fin', name:'Финский дом «Оржицы»', hit:true, area:204, bed:3, bath:'2+', img:'img/fin2.jpg', price:'4 416 600 ₽'},
+  {cat:'fin', name:'«Дудергоф» П-образный', hit:false, area:271, bed:3, bath:'3', img:'img/fin3.jpg', price:'5 688 290 ₽'},
+  {cat:'fin', name:'«Кайгас-Классика»', hit:true, area:84, bed:2, bath:'1', img:'img/dacha.jpg', price:'2 299 080 ₽'},
+  {cat:'fin', name:'«Кемь-Классика»', hit:true, area:121, bed:3, bath:'2', img:'img/fin1.jpg', price:'2 730 970 ₽'},
+  {cat:'fin', name:'«Ладога»', hit:false, area:231, bed:4, bath:'2+', img:'img/int2.jpg', price:'4 516 050 ₽'},
+  {cat:'fin', name:'«Шуя»', hit:true, area:133, bed:3, bath:'2+', img:'img/cont.jpg', price:'2 819 600 ₽'},
+  {cat:'barn', name:'БарнХаус «Рощино»', hit:false, area:150, bed:3, bath:'2', img:'img/barn1.jpg', price:'3 450 000 ₽'},
+  {cat:'barn', name:'БарнХаус «Ягодное»', hit:false, area:112, bed:2, bath:'2', img:'img/barn2.jpg', price:'2 980 000 ₽'},
+  {cat:'dacha', name:'Каркасная баня «Ушаки»', hit:false, area:24, bed:'—', bath:'1', img:'img/banya1.jpg', price:'890 000 ₽'},
+  {cat:'dacha', name:'Гостевой домик «Таменгонты»', hit:false, area:40, bed:'1', bath:'1', img:'img/banya2.jpg', price:'980 000 ₽'},
+];
+function fmtArea(a){return a+' м²'}
+function renderCat(cat){
+  var grid=document.getElementById('projGrid');
+  var list=PROJECTS.filter(function(p){return p.cat===cat;});
+  grid.innerHTML=list.map(function(p){
+    return '<article class="proj">'
+      +'<div class="thumb"><img src="'+p.img+'" alt="'+p.name+'" loading="lazy">'+(p.hit?'<span class="hit">хит продаж</span>':'')+'</div>'
+      +'<div class="body"><h3>'+p.name+'</h3>'
+      +'<div class="specs"><span>'+fmtArea(p.area)+'</span><span>спальни: '+p.bed+'</span><span>санузлы: '+p.bath+'</span></div>'
+      +'<div class="price">'+p.price+'<small>под ключ, по договору</small></div>'
+      +'<a class="p-cta" href="#contacts">Запросить подробности →</a>'
+      +'</div></article>';
+  }).join('');
+}
+document.querySelectorAll('#catTabs .cat-tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('#catTabs .cat-tab').forEach(function(x){x.classList.remove('active');});
+    t.classList.add('active');
+    renderCat(t.dataset.cat);
+  });
+});
+renderCat('fin');
+
+/* ---------- quiz ---------- */
+var QUIZ=[
+  {q:'Какой формат дома вас интересует?', opts:['Финский одноэтажный','Мансардный / двухэтажный','БарнХаус','Большой коттедж','Дачный / гостевой домик','Баня']},
+  {q:'Какая площадь нужна?', opts:['до 100 м²','100–150 м²','150–250 м²','больше 250 м²']},
+  {q:'Когда планируете строительство?', opts:['В этом сезоне','В следующем году','Пока присматриваюсь']},
+  {q:'Есть ли участок под строительство?', opts:['Да, участок есть','Участок в процессе покупки','Нужна помощь с подбором']},
+  {q:'Как планируете оплачивать?', opts:['Собственные средства','Ипотека','Кредит','Материнский капитал','Рассрочка / поэтапно']},
+  {q:'Какой у вас бюджет?', opts:['от 700 тыс. ₽ до 2 млн ₽','от 3 до 6 млн ₽','от 7 млн ₽']}
+];
+var qIdx=0, qAnswers=[];
+function renderQuiz(){
+  var step=QUIZ[qIdx];
+  document.getElementById('qTitle').textContent=step.q;
+  document.getElementById('qInd').textContent='Шаг '+(qIdx+1)+' из '+QUIZ.length;
+  document.getElementById('qBar').style.width=Math.round((qIdx+1)/QUIZ.length*100)+'%';
+  document.getElementById('qOpts').innerHTML=step.opts.map(function(o){
+    return '<button type="button" class="quiz-opt'+(qAnswers[qIdx]===o?' sel':'')+'" data-v="'+o+'">'+o+'</button>';
+  }).join('');
+  document.querySelectorAll('#qOpts .quiz-opt').forEach(function(b){
+    b.addEventListener('click',function(){
+      qAnswers[qIdx]=b.dataset.v;
+      document.querySelectorAll('#qOpts .quiz-opt').forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');
+      document.getElementById('qNext').style.display='inline-flex';
+    });
+  });
+  document.getElementById('qNext').style.display=qAnswers[qIdx]?'inline-flex':'none';
+  document.getElementById('qBack').disabled=qIdx===0;
+  document.getElementById('qSteps').style.display='block';
+  document.getElementById('qFinal').classList.remove('show');
+}
+document.getElementById('qNext').addEventListener('click',function(){
+  if(qAnswers[qIdx]===undefined)return;
+  if(qIdx<QUIZ.length-1){qIdx++;renderQuiz();}
+  else{
+    document.getElementById('qSteps').style.display='none';
+    document.getElementById('qInd').textContent='Готово';
+    document.getElementById('qBar').style.width='100%';
+    document.getElementById('qSummary').textContent='«'+qAnswers[0]+'», '+qAnswers[1]+', бюджет '+qAnswers[5];
+    var c=document.querySelector('#quizForm [name=comment]');
+    if(c&&!c.value)c.value='Квиз: '+qAnswers.join(' · ');
+    document.getElementById('qFinal').classList.add('show');
+  }
+});
+document.getElementById('qBack').addEventListener('click',function(){
+  if(qIdx>0){qIdx--;renderQuiz();}
+});
+document.getElementById('quizForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  document.getElementById('quizOk').classList.add('show');
+  this.reset();
+});
+renderQuiz();
+
+/* ---------- calc form ---------- */
+</script>
+
+<script type="module" src="./assets/k3d/k3d.js"></script>
+<script src="./assets/k3d/lead-wizard.js" defer></script>
+</body>
+</html>
